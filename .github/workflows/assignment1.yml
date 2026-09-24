@@ -1,0 +1,37 @@
+name: Grade Assignment 1
+
+on:
+  push:
+    paths:
+      - 'assignment1/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout student code
+        uses: actions/checkout@v4
+
+      - name: Checkout grader tests (private repo)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/oop-grader-tests
+          token: ${{ secrets.GRADER_REPO_TOKEN }}
+          path: grader
+
+      - name: Compile against grader test
+        run: |
+          g++ -std=c++17 -Wall -fsanitize=address -o test_runner \
+            grader/assignment1_test.cpp \
+            assignment1/problem2_bankaccount/BankAccount.cpp \
+            -I .
+
+      - name: Run tests
+        run: ./test_runner
+
+      - name: Sanity-check student's own main() builds
+        run: |
+          g++ -std=c++17 -Wall -o student_program \
+            assignment1/*_Assignment1.cpp \
+            assignment1/problem2_bankaccount/BankAccount.cpp \
+            -I assignment1

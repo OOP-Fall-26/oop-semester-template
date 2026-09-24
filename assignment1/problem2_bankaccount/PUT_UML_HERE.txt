@@ -1,0 +1,6 @@
+Put your BankAccount_UML.png (or .pdf) in this same folder.
+
+It should show, in standard UML class-diagram notation:
+- Class name: BankAccount
+- Attributes with visibility: - accountHolder: string, - balance: double
+- Methods with visibility: + deposit(amount: double): bool, etc.
