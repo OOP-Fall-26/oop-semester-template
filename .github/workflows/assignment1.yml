@@ -15,7 +15,7 @@ jobs:
       - name: Checkout grader tests (private repo)
         uses: actions/checkout@v4
         with:
-          repository: OOP-FALL-2026/oop-coder-tasks
+          repository: OOP-FALL-26/oop-coder-tasks
           token: ${{ secrets.GRADER_REPO_TOKEN }}
           path: grader
 
